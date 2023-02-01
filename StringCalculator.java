@@ -16,7 +16,8 @@ public class StringCalculator{
 
     }
 
-    public void main(String[] args){
-        System.out.println(Add("1,2"));
+    public static void main (String[] args){
+        StringCalculator sc = new StringCalculator();
+        System.out.println(sc.Add("1,2,3"));
     }
 }
