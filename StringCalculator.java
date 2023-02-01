@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 public class StringCalculator{
     public int Add(String numbers){
@@ -9,8 +11,6 @@ public class StringCalculator{
         ArrayList<Integer> negativeNum = new ArrayList<>();
    
         String[] numbersArr = numbers.split("[^\\d-]+");
-
-
         int size = numbersArr.length;
         int [] intArr = new int [size];
         for(int i=0; i<size; i++) {
@@ -21,8 +21,8 @@ public class StringCalculator{
             if (intArr[i]<0){
                 negativeCheck = true;
                 negativeNum.add(intArr[i]); 
-
             }
+
             sum += intArr[i];
         }
 
@@ -36,6 +36,8 @@ public class StringCalculator{
 
     }
 
+
+
     public static void main (String[] args){
 
         Scanner myObj = new Scanner(System.in);
@@ -45,5 +47,15 @@ public class StringCalculator{
         myObj.close();
         StringCalculator sc = new StringCalculator();
         System.out.println(sc.Add(numbers));
+    }
+
+    @Test
+    public void test(){
+        StringCalculator sc = new StringCalculator();
+        assertEquals(sc.Add("1,2,3"),6);
+        assertEquals(sc.Add("3\n7"),10);
+        assertEquals(sc.Add("3\n7,6\n3"),19);
+        assertEquals(sc.Add("\\e3*g\n7,6\n3"),19);
+        assertEquals(sc.Add("//;\n1;2"),3);
     }
 } 
