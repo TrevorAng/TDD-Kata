@@ -23,6 +23,10 @@ public class StringCalculator{
                 negativeNum.add(intArr[i]); 
             }
 
+            if (intArr[i]>1000){
+                intArr[i] = 0;
+            }
+
             sum += intArr[i];
         }
 
@@ -57,5 +61,9 @@ public class StringCalculator{
         assertEquals(sc.Add("3\n7,6\n3"),19);
         assertEquals(sc.Add("\\e3*g\n7,6\n3"),19);
         assertEquals(sc.Add("//;\n1;2"),3);
+        assertEquals(sc.Add("//;\n10000;2,5"),7);
+        assertEquals(sc.Add("//[***]\n1***2***3"),6);
+        assertEquals(sc.Add("//[**][%%]\n1**2%%3"),6);
+
     }
 } 
