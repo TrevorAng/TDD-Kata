@@ -11,14 +11,17 @@ public class StringCalculator3 {
         }
 
         String[] nums;
+        
 
         if (numbers.startsWith("//")) {
-            nums = numbers.split(findDelimiter(numbers));
+            
+            String[] stringArray = numbers.split("\n", 2);
+            String string1 = stringArray[0];
+            String string2 = (stringArray.length > 1) ? stringArray[1] : "";
+            nums = string2.split(findDelimiter(numbers));
             return calculate(nums);
 
         }
-
-
 
         nums = numbers.split("[,\n]");
 
