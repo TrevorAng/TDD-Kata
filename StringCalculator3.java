@@ -2,8 +2,12 @@ import static org.junit.Assert.assertEquals;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.junit.Test;
+import org.junit.Before;
 
 public class StringCalculator3 {
+
+    private StringCalculator3 sc;
+
     public int Add(String numbers) {
 
         if (numbers == "") {
@@ -30,6 +34,23 @@ public class StringCalculator3 {
     }
 
     public String findDelimiter(String numbers) {
+        
+        if (numbers.startsWith("//[")){
+
+            Pattern pattern = Pattern.compile("\\[(.*?)\\]");
+            Matcher matcher = pattern.matcher(numbers);
+    
+            String delimiters = "[//";
+    
+            while (matcher.find()) {
+                delimiters = delimiters + matcher.group(1);
+            }
+    
+            delimiters = delimiters + "]+";
+    
+            return delimiters;
+        }
+
         if (numbers.startsWith("//")) {
             Pattern pattern = Pattern.compile("//(.+)\n");
             Matcher matcher = pattern.matcher(numbers);
@@ -70,17 +91,22 @@ public class StringCalculator3 {
     
     }
 
+    @Before
+    public void setUp() {
+        sc = new StringCalculator3();
+    }
+
     @Test
-    public void forEmptyString() {
-        StringCalculator3 sc = new StringCalculator3();
+    public void return_zero_for_empty_string() {
+
         assertEquals(sc.Add(""), 0);
 
     }
 
     @Test
-    public void commaDelimitedString() {
+    public void return_sum_for_string_containing_commas() {
 
-        StringCalculator3 sc = new StringCalculator3();
+
         assertEquals(sc.Add("1,2,3"), 6);
         assertEquals(sc.Add("0,2,3"), 5);
         assertEquals(sc.Add("5,3,2"), 10);
@@ -88,25 +114,40 @@ public class StringCalculator3 {
     }
     
     @Test 
-    public void newLineDelimitedString() {
+    public void return_sum_for_string_containing_newline_commas() {
 
-        StringCalculator3 sc = new StringCalculator3();
+
         assertEquals(sc.Add("1\n2"),3);
         assertEquals(sc.Add("1\n2,3,4"), 10);
     }
 
     @Test
-    public void differentDelimiter() {
+    public void return_sum_for_string_of_any_single_delimiter() {
 
-        StringCalculator3 sc = new StringCalculator3();
+
         assertEquals(sc.Add("//;\n1;2"),3);
+        assertEquals(sc.Add("//a\n1a2"),3);
     }
 
     @Test
-    public void valuesOver1000() {
+    public void return_sum_but_ignore_values_over_1000() {
 
-        StringCalculator3 sc = new StringCalculator3();
-        assertEquals(sc.Add("//;\n1001;1;2"), 3);
+
+        assertEquals(sc.Add("//;\n1001;1;2"), 3);   
         assertEquals(sc.Add("5000,1,2,10"), 13);
+        assertEquals(sc.Add("1001"), 0);
+    }
+
+    @Test
+    public void test_for_negatives() throws Exception{
+
+        sc.Add("-1");
+    }
+
+    @Test
+    public void return_sum_for_any_delimiter_in_format() {
+
+        assertEquals(sc.Add("//[***][;;;]\n1***2;;;3***5"), 11);
+        assertEquals(sc.Add("//[hello]\n1hello3"),4);
     }
 }
