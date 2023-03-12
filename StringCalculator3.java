@@ -101,4 +101,12 @@ public class StringCalculator3 {
         StringCalculator3 sc = new StringCalculator3();
         assertEquals(sc.Add("//;\n1;2"),3);
     }
+
+    @Test
+    public void valuesOver1000() {
+
+        StringCalculator3 sc = new StringCalculator3();
+        assertEquals(sc.Add("//;\n1001;1;2"), 3);
+        assertEquals(sc.Add("5000,1,2,10"), 13);
+    }
 }
