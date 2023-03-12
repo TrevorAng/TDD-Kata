@@ -8,7 +8,11 @@ public class StringCalculator3 {
 
     private StringCalculator3 sc;
 
+    int addCalledCount;
+
     public int Add(String numbers) {
+
+        GetCalledCount();
 
         if (numbers == "") {
             return 0;
@@ -51,7 +55,7 @@ public class StringCalculator3 {
             return delimiters;
         }
 
-        if (numbers.startsWith("//")) {
+        else {
             Pattern pattern = Pattern.compile("//(.+)\n");
             Matcher matcher = pattern.matcher(numbers);
             if (matcher.find()) {
@@ -89,6 +93,10 @@ public class StringCalculator3 {
     
         return sum;
     
+    }
+
+    public int GetCalledCount() {
+        return this.addCalledCount;
     }
 
     @Before
