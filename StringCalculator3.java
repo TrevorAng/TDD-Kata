@@ -44,11 +44,30 @@ public class StringCalculator3 {
     public int calculate(String[] nums) {
 
         int sum = 0;
-        for (String num : nums) {
-            sum += Integer.parseInt(num);
+        int size = nums.length;
+        int[] intArr = new int[size];
+    
+        for (int i = 0; i < size; i++) {
+            try {
+                intArr[i] = Integer.parseInt(nums[i]);
+                if (intArr[i] < 0) {
+                    throw new Exception("Negatives not allowed: " + intArr[i]);
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return -1;
+            }
         }
+    
+        for (int i = 0; i < size; i++) {
+            if (intArr[i] > 1000) {
+                continue;
+            }
+            sum += intArr[i];
+        }
+    
         return sum;
-
+    
     }
 
     @Test
